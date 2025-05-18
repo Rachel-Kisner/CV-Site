@@ -1,56 +1,4 @@
-﻿//using Azure.Core.Extensions;
-//using Microsoft.Extensions.Configuration;
-//using Microsoft.Extensions.Options;
-//using Octokit;
-//using Service;
-
-
-
-//namespace Services
-//{
-//    public class GitHubService
-//    {
-//        private readonly GitHubClient _client;
-//        private readonly GitHubIntegrationOptions _options;
-
-//        public GitHubService(IOptions<GitHubIntegrationOptions> options)
-//        {
-//            _client = new GitHubClient(new ProductHeaderValue("CVSiteApp"));
-//            _options = options.Value;
-//            Console.WriteLine(_options.Token);
-//            if (!string.IsNullOrEmpty(_options.Token))
-//            {
-//                _client.Credentials = new Credentials(_options.Token);
-
-//            }
-//        }
-//        public async Task<IReadOnlyList<Repository>> GetRepositoriesAsync(string username)
-//        {
-//            return await _client.Repository.GetAllForUser(_options.userName);   
-//        }
-//        public async Task<Repository> GetRepositoryAsync(string owner,string repoName)
-//        {
-//            return await _client.Repository.Get(owner,repoName);
-//        }
-//        public async Task<IReadOnlyList<Repository>> GetStarredRepositoriesAsync(string username)
-//        {
-//            return await _client.Activity.Starring.GetAllForUser(username);
-//        }
-
-//        public async Task<int>GetUserFollowersAsync(string userName)
-//        {
-//            var user = await _client.User.Get(userName);
-//            return user.Followers;
-//        }
-//        public async Task<List<Repository>>SearchRepositoriesInCSharpAsync(string repoName)
-//        {
-//            var searchRequest = new SearchRepositoriesRequest(repoName) { Language=Language.CSharp };
-//            var searchResult = await _client.Search.SearchRepo(searchRequest);
-//            return searchResult.Items.ToList();
-//        }
-//    }
-//}
-
+﻿
 
 
 using DL.DTOs;
@@ -81,8 +29,7 @@ namespace Services
             {
                 _client.Credentials = new Credentials(options.Value.Token);
             }
-            //Console.WriteLine("Token: " + _options.Token);
-            //Console.WriteLine("User: " + _options.UserName);
+
 
         }
 
@@ -150,35 +97,6 @@ namespace Services
             return portfolio;
         }
 
-
-
-        //public async Task<List<RepositorySearchDto>> SearchRepositoriesAsync(string? repoName=null,string? language = null,string? userName = null)
-        //{
-        //    var user_name = userName==null?_options.UserName:userName;
-        //    var request = new SearchRepositoriesRequest(repoName ?? "")
-        //    {
-        //        SortField = RepoSearchSort.Stars,
-        //        Order = SortDirection.Descending
-        //    };
-        //    if (!string.IsNullOrWhiteSpace(language) && Enum.TryParse<Language>(language, true, out var parsedLanguage))
-        //    {
-        //        request.Language = parsedLanguage;
-        //    }
-
-
-        //    request.User = user_name;
-
-        //    var result = await _client.Search.SearchRepo(request);
-        //    return result.Items.Select(repo => new RepositorySearchDto
-        //    {
-        //        Name = repo.Name,
-        //        Description = repo.Description,
-        //        HtmlUrl = repo.HtmlUrl,
-        //        Language = repo.Language,
-        //        Stars = repo.StargazersCount
-        //    }).ToList();    
-
-        //}
         public async Task<List<RepositorySearchDto>> SearchRepositoriesAsync(string? repoName = null, string? language = null, string? userName = null)
         {
             var searchTerm = string.Empty;
